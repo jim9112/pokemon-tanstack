@@ -1,11 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
+import PokeCard from '#/components/PokeCard'
+import type { Pokemon } from '../types'
 
 export const Route = createFileRoute('/')({ component: App })
 
 function App() {
   const [search, setSearch] = useState('')
-  const [pokemon, setPokemon] = useState<{ name: string } | null>(null)
+  const [pokemon, setPokemon] = useState<Pokemon | null>(null)
   const [loading, isLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   async function getPokemon() {
@@ -16,6 +18,7 @@ function App() {
   }
   async function handleSubmit(event: React.SubmitEvent) {
     event.preventDefault()
+    setPokemon(null)
     setError(null)
     isLoading(true)
     try {
@@ -57,11 +60,12 @@ function App() {
           </form>
         </div>
       </section>
-
       <section className="mt-8 island-shell rounded-4xl px-6 py-10">
+        {pokemon && (
+          <PokeCard pokemon={pokemon} loading={loading} error={error} />
+        )}
         {error && <p className="text-red-500">{error}</p>}
         {loading && <p>Loading...</p>}
-        {pokemon && <p>{pokemon.name}</p>}
       </section>
     </main>
   )
