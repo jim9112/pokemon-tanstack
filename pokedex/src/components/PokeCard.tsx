@@ -13,6 +13,15 @@ export default function PokeCard({
         <img src={pokemon.sprites.front_default} alt={pokemon.name} />
         <h2 className="text-3xl capitalize">{pokemon.name}</h2>
       </div>
+      {pokemon.types.length > 0 && (
+        <div className="flex">
+          {pokemon.types.map((type) => (
+            <span key={type.type.name} className="text-xl capitalize italic">
+              {type.type.name}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

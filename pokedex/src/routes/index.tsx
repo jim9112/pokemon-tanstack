@@ -1,12 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PokeCard from '#/components/PokeCard'
 import type { Pokemon } from '../types'
 
 export const Route = createFileRoute('/')({ component: App })
 
 function App() {
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState('ditto')
   const [pokemon, setPokemon] = useState<Pokemon | null>(null)
   const [loading, isLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -16,6 +16,9 @@ function App() {
     console.log(data)
     setPokemon(data)
   }
+  useEffect(() => {
+    getPokemon()
+  }, [])
   async function handleSubmit(event: React.SubmitEvent) {
     event.preventDefault()
     setPokemon(null)
