@@ -15,11 +15,9 @@ export default function PokeCard({
       </div>
       {pokemon.types.length > 0 && (
         <div className="flex">
-          {pokemon.types.map((type) => (
-            <span key={type.type.name} className="text-xl capitalize italic">
-              {type.type.name}
-            </span>
-          ))}
+          <span className="text-xl capitalize italic">
+            Type: {pokemon.types.map((type) => type.type.name).join(', ')}
+          </span>
         </div>
       )}
     </div>
